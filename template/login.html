@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script>
+    function setCookie(cname, cvalue, exdays) {  
+        var d = new Date();  
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));  
+        var expires = "expires="+d.toUTCString();  
+        document.cookie = cname + "=" + cvalue + "; " + expires;  
+    }  
+    //获取cookie  
+    function getCookie(cname) {  
+        var name = cname + "=";  
+        var ca = document.cookie.split(';');  
+        for(var i=0; i<ca.length; i++) {  
+            var c = ca[i];  
+            while (c.charAt(0)==' ') c = c.substring(1);  
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);  
+        }  
+        return "";  
+    }  
+    //清除cookie    
+    function clearCookie(name) {    
+        setCookie(name, "", -1);    
+    }    
+    function checkCookie() {  
+        var user = getCookie("username");  
+        if (user != "") {  
+            alert("Welcome again " + user);  
+        } else {  
+            user = prompt("Please enter your name:", "");  
+            if (user != "" && user != null) {  
+                setCookie("username", user, 365);  
+            }  
+        }  
+    }  
+    
+    function login(){
+      var xml = new XMLHttpRequest()
+      var user = document.getElementById("user").value
+      var pwd = document.getElementById("pwd").value
+      var body = {user: user, pwd: pwd}
+      xml.open("POST", "/login", true)
+      xml.setRequestHeader("Content-Type","application/json")
+      xml.onreadystatechange = function(res){
+        if(xml.readyState==4 && xml.status==200){
+          var obj = JSON.parse(xml.responseText)
+          console.log(obj)
+        }else if(xml.readyState==4 && xml.status==303){
+          window.location = "/index"
+        }
+      }
+      xml.send(JSON.stringify(body))
+    }
+  </script>
+</head>
+<body>
+  <div class="login-form">
+    <div><span>用户名：</span><input id="user" type="text" value="wangtong"></div>
+    <div><span>密码：</span><input id="pwd" type="text" value="123456"></div>
+    <div><button onclick="login()">登录</button></div> 
+  </div>
+  <style>
+    .login-form{
+      margin: auto;
+      width: 250px;
+    }
+    .login-form div{
+      display: flex;
+      justify-content: space-between;
+      margin: 10px;
+    }
+    .login-form div button{
+      margin: auto;
+      border-radius: 6px;
+      background-color: transparent;
+      width: 80px;
+    }
+    html,body{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      font-size: 17px;
+    }
+  </style>
+</body>
+</html>

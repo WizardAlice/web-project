@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Secrets',
   data () {
     return {
-      msg: '这里假设是登录之后的主页'
+      msg: '这里假设是secrets页面'
     }
   }
 }

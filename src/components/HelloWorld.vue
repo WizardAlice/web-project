@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <router-link to="/secrets">Go to secrets</router-link>
   </div>
 </template>
 

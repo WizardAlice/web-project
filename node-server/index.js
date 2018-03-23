@@ -84,7 +84,9 @@ app.get('/index', (req, res) => {
 //   res.send("nihao")
 // })
 
-let port = process.argv.PORT || 3000
+let port = process.argv[2] || 3000
+
+console.log(process.argv[2])
 
 server.listen(port, ()=>{
   console.log(`node服务器运行在${port}端口`)
